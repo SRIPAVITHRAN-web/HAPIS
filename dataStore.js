@@ -56,6 +56,26 @@ class DataStore {
         }
     }
 
+    static async deleteStudent(rollNo) {
+        let students = this.getStudents();
+        const initialLength = students.length;
+        students = students.filter(s => s.rollNo !== rollNo);
+        
+        if (students.length < initialLength) {
+            this.cache = students; // Update locally
+            try {
+                const response = await fetch(`${this.API_BASE}/api/students/${encodeURIComponent(rollNo)}`, {
+                    method: 'DELETE'
+                });
+                if (!response.ok) {
+                    console.error("HAPIS Warning: Could not delete from backend.");
+                }
+            } catch (e) {
+                console.error("HAPIS Error: Failed to hit delete endpoint.", e);
+            }
+        }
+    }
+
     static parseCSV(file, callback) {
         Papa.parse(file, {
             header: true,
