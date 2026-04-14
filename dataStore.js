@@ -2,7 +2,7 @@
 
 class DataStore {
     static cache = [];
-    static API_BASE = "http://localhost:8000";
+    static API_BASE = "https://resume-poec.onrender.com";
 
     // Call this ONLY once on boot to pull the authoritative Data from Python
     static async hydrate() {
