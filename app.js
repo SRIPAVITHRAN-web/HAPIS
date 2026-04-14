@@ -791,3 +791,99 @@ async function drop(ev, targetStatus) {
         renderKanban();
     }
 }
+
+// -------------------------
+// STUDENT PROFILE MODAL
+// -------------------------
+function openStudentProfile(rollNo) {
+    const students = DataStore.getStudents();
+    const student = students.find(s => s.rollNo === rollNo);
+    if (!student) return;
+
+    document.getElementById('sm-name').textContent = student.name;
+    document.getElementById('sm-roll').textContent = student.rollNo;
+    document.getElementById('sm-branch').textContent = student.branch;
+    document.getElementById('sm-cgpa').textContent = student.cgpa || 'N/A';
+    document.getElementById('sm-score').textContent = student.score;
+    document.getElementById('sm-avatar').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(student.name)}&size=150&background=random&color=fff&rounded=true`;
+
+    const githubBtn = document.getElementById('sm-github');
+    if (student.github) { githubBtn.href = student.github.startsWith('http') ? student.github : `https://${student.github}`; githubBtn.style.display = 'inline-flex'; }
+    else { githubBtn.style.display = 'none'; }
+
+    const linkedinBtn = document.getElementById('sm-linkedin');
+    if (student.linkedin) { linkedinBtn.href = student.linkedin.startsWith('http') ? student.linkedin : `https://${student.linkedin}`; linkedinBtn.style.display = 'inline-flex'; }
+    else { linkedinBtn.style.display = 'none'; }
+
+    const skillsContainer = document.getElementById('sm-skills');
+    skillsContainer.innerHTML = student.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('');
+
+    const deleteBtn = document.getElementById('sm-delete');
+    deleteBtn.onclick = async () => {
+        if(confirm(`Are you sure you want to delete ${student.name}'s record?`)) {
+            await DataStore.deleteStudent(student.rollNo);
+            document.getElementById('student-modal-overlay').classList.remove('show');
+            refreshUI(); // Refresh the table and charts
+        }
+    };
+
+    renderStudentChart(student);
+
+    document.getElementById('student-modal-overlay').classList.add('show');
+}
+
+function renderStudentChart(student) {
+    const canvas = document.getElementById('studentProfileChart');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (studentProfileChartInstance) studentProfileChartInstance.destroy();
+
+    // Strict dark mode configurations
+    const gridColor = 'rgba(255,255,255,0.05)';
+    const textColor = '#94a3b8';
+
+    studentProfileChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Internships', 'Projects', 'Hackathons'],
+            datasets: [{
+                label: 'Count',
+                data: [student.internships || 0, student.projects || 0, student.hackathons || 0],
+                backgroundColor: [
+                    'rgba(245, 158, 11, 0.8)', // warning
+                    'rgba(139, 92, 246, 0.8)', // purple
+                    'rgba(16, 185, 129, 0.8)'  // success
+                ],
+                borderRadius: 8,
+                borderWidth:0
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            scales: {
+                y: { beginAtZero: true, grid: { color: gridColor }, ticks: { color: textColor, stepSize: 1 } },
+                x: { grid: { display: false }, ticks: { color: textColor } }
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: { backgroundColor: '#1e293b', titleColor: '#fff', bodyColor: '#cbd5e1', borderColor: gridColor, borderWidth: 1 }
+            }
+        }
+    });
+}
+
+// Ensure elements exist before adding listeners since app.js is loaded at the end of the body
+const closeBtn = document.getElementById('modal-close-btn');
+if(closeBtn) {
+    closeBtn.addEventListener('click', () => {
+        document.getElementById('student-modal-overlay').classList.remove('show');
+    });
+}
+const overlay = document.getElementById('student-modal-overlay');
+if(overlay) {
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            overlay.classList.remove('show');
+        }
+    });
+}
