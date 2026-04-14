@@ -790,11 +790,12 @@ function renderKanban() {
 }
 function allowDrop(ev) { ev.preventDefault(); }
 function drag(ev, rollNo) { ev.dataTransfer.setData("rollNo", rollNo); }
-function drop(ev, targetStatus) {
+async function drop(ev, targetStatus) {
     ev.preventDefault();
     const rollNo = ev.dataTransfer.getData("rollNo");
     if (rollNo) {
-        DataStore.updateStudentPipeline(rollNo, targetStatus);
+        await DataStore.updateStudentPipeline(rollNo, targetStatus);
+        renderKanban();
     }
 }
 
