@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAPIS | Holistic AI Placement Intelligence System</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- ========== INTRO SPLASH SCREEN ========== -->
+    <div id="splash-screen">
+        <div class="splash-bg-orb orb1"></div>
+        <div class="splash-bg-orb orb2"></div>
+        <div class="splash-bg-orb orb3"></div>
+
+        <div class="splash-content">
+            <div class="splash-logo">
+                <i class="fa-solid fa-brain"></i>
+            </div>
+            <h1 class="splash-title">HAPIS</h1>
+            <p class="splash-subtitle">Holistic AI Placement Intelligence System</p>
+
+            <div class="splash-loader">
+                <div class="splash-loader-bar" id="splash-bar"></div>
+            </div>
+            <p class="splash-status" id="splash-status">Initializing Neural Engine...</p>
+        </div>
+    </div>
+
+    <!-- Login Screen -->
+    <div id="login-wrapper" style="display:none;">
+        <div class="login-card">
+            <div class="login-logo"><i class="fa-solid fa-brain"></i></div>
+            <h2>HAPIS Engine</h2>
+            <p>Enterprise AI Placement Intelligence</p>
+            
+            <div class="form-group">
+                <label>System Credentials</label>
+                <input type="text" id="login-user" placeholder="Enter 'admin'" value="admin">
+            </div>
+            <div class="form-group">
+                <label>Security Key</label>
+                <input type="password" id="login-pass" placeholder="Enter 'admin'" value="admin">
+            </div>
+            <button class="btn-primary ripple" id="btn-login" style="margin-top: 16px;">Authenticate</button>
+            <p id="login-error" style="color:var(--danger); display:none; margin-top:12px; font-size:0.8rem;">Access Denied. Invalid credentials.</p>
+
+            <div style="margin: 24px 0; display:flex; align-items:center; text-align:center; color:var(--text-muted);">
+                <div style="flex:1; height:1px; background:#cbd5e1;"></div>
+                <span style="padding: 0 10px; font-size:0.85rem; font-weight:600;">OR</span>
+                <div style="flex:1; height:1px; background:#cbd5e1;"></div>
+            </div>
+
+            <button class="btn-google ripple" id="btn-google-login">
+                <i class="fa-brands fa-google" style="color:#db4437; margin-right:8px; font-size:1.1rem;"></i> Continue via SSO
+            </button>
+        </div>
+    </div>
+
+    <!-- Main App Wrapper -->
+    <div id="app-wrapper" style="display:none;">
+        
+        <!-- Top Navigation Bar -->
+        <nav class="top-navbar">
+            <div class="brand">
+                <div class="brand-icon"><i class="fa-solid fa-brain"></i></div> HAPIS
+            </div>
+            
+            <ul class="nav-links">
+                <li class="nav-item active ripple" data-target="dashboard">
+                    <i class="fa-solid fa-chart-line"></i> Analytics
+                </li>
+                <li class="nav-item ripple" data-target="students">
+                    <i class="fa-solid fa-users-viewfinder"></i> Candidate DB
+                </li>
+                <li class="nav-item ripple" data-target="matcher">
+                    <i class="fa-solid fa-microchip"></i> AI Matcher
+                </li>
+                <li class="nav-item ripple" data-target="pipeline">
+                    <i class="fa-solid fa-kanban"></i> Pipeline
+                </li>
+                <li class="nav-item ripple" data-target="import">
+                    <i class="fa-solid fa-cloud-arrow-up"></i> Data Hub
+                </li>
+            </ul>
+
+            <div class="user-profile">
+                <div class="notification-bell">
+                    <i class="fa-regular fa-bell"></i>
+                    <div class="notification-badge"></div>
+                </div>
+                <span>Welcome, Coordinator</span>
+                <img src="https://i.pravatar.cc/150?img=11" alt="Avatar" class="avatar">
+                
+                <div class="menu-container">
+                    <button class="icon-btn" id="btn-meatballs"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    <div class="dropdown-menu" id="meatballs-dropdown">
+                        <div class="dropdown-item" id="btn-theme-toggle"><i class="fa-solid fa-moon"></i> Toggle Dark Mode</div>
+                        <div class="dropdown-item" id="btn-export-csv"><i class="fa-solid fa-download"></i> Export Analytics</div>
+                        <div class="dropdown-item" id="btn-clear-db" style="color:var(--danger);"><i class="fa-solid fa-trash"></i> Purge Records</div>
+                        <hr style="margin:4px 0; border:none; border-top:1px solid #e2e8f0;">
+                        <div class="dropdown-item" id="btn-logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Terminate Session</div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="content-section active">
+                <h1 class="page-title">Executive Dashboard</h1>
+                
+                <!-- Quick Actions Panel -->
+                <div class="quick-actions">
+                    <button class="qa-btn ripple" onclick="document.querySelector('.nav-item[data-target=\'import\']').click()"><i class="fa-solid fa-file-arrow-up"></i> Upload Resumes</button>
+                    <button class="qa-btn ripple" onclick="document.querySelector('.nav-item[data-target=\'matcher\']').click()"><i class="fa-solid fa-bolt"></i> Run AI Matching</button>
+                    <button class="qa-btn ripple" onclick="document.querySelector('.nav-item[data-target=\'pipeline\']').click()"><i class="fa-solid fa-chalkboard-user"></i> Manage Interviews</button>
+                </div>
+
+                <!-- KPI Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card panel hover-scale">
+                        <div class="stat-header">
+                            <div class="stat-icon blue"><i class="fa-solid fa-users"></i></div>
+                            <div class="trend up"><i class="fa-solid fa-arrow-trend-up"></i> +12%</div>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total Candidates</h3>
+                            <p id="total-students" class="skeleton">0</p>
+                        </div>
+                        <div class="sparkline-mock" style="background:linear-gradient(90deg, #93c5fd 0%, #3b82f6 100%); width:60%;"></div>
+                    </div>
+                    
+                    <div class="stat-card panel hover-scale">
+                        <div class="stat-header">
+                            <div class="stat-icon green"><i class="fa-solid fa-graduation-cap"></i></div>
+                            <div class="trend up"><i class="fa-solid fa-arrow-trend-up"></i> +2.1%</div>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Batch Avg CGPA</h3>
+                            <p id="avg-cgpa" class="skeleton">0.0</p>
+                        </div>
+                        <div class="sparkline-mock" style="background:linear-gradient(90deg, #6ee7b7 0%, #10b981 100%); width:85%;"></div>
+                    </div>
+
+                    <div class="stat-card panel hover-scale">
+                        <div class="stat-header">
+                            <div class="stat-icon purple"><i class="fa-solid fa-code"></i></div>
+                            <div class="trend up"><i class="fa-solid fa-arrow-trend-up"></i> +45%</div>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total Projects</h3>
+                            <p id="total-projects" class="skeleton">0</p>
+                        </div>
+                        <div class="sparkline-mock" style="background:linear-gradient(90deg, #c4b5fd 0%, #8b5cf6 100%); width:90%;"></div>
+                    </div>
+
+                    <div class="stat-card panel hover-scale">
+                        <div class="stat-header">
+                            <div class="stat-icon orange"><i class="fa-solid fa-building"></i></div>
+                            <div class="trend down"><i class="fa-solid fa-arrow-trend-down"></i> -5%</div>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Prior Internships</h3>
+                            <p id="total-internships" class="skeleton">0</p>
+                        </div>
+                        <div class="sparkline-mock" style="background:linear-gradient(90deg, #fcd34d 0%, #f59e0b 100%); width:40%;"></div>
+                    </div>
+                </div>
+
+                <!-- AI Insights Panel -->
+                <h3 style="margin-bottom:16px; font-weight:800; color:var(--text-main); letter-spacing:-0.5px;">✨ HAPIS AI Insights</h3>
+                <div class="insights-grid">
+                    <div class="insight-card panel hover-scale">
+                        <i class="fa-brands fa-python"></i>
+                        <div class="insight-info">
+                            <h4>Top Batch Skill</h4>
+                            <p id="ai-top-skill" class="skeleton">Awaiting Data</p>
+                        </div>
+                    </div>
+                    <div class="insight-card panel hover-scale" style="border-left-color:var(--success);">
+                        <i class="fa-solid fa-building-columns"></i>
+                        <div class="insight-info">
+                            <h4>Most Eligible Dept</h4>
+                            <p id="ai-top-dept" class="skeleton">Awaiting Data</p>
+                        </div>
+                    </div>
+                    <div class="insight-card panel hover-scale" style="border-left-color:var(--warning);">
+                        <i class="fa-solid fa-trophy"></i>
+                        <div class="insight-info">
+                            <h4>Avg Score Index</h4>
+                            <p id="ai-avg-score" class="skeleton">--</p>
+                        </div>
+                    </div>
+                    <div class="insight-card panel hover-scale" style="border-left-color:var(--danger);">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <div class="insight-info">
+                            <h4>Major Skill Gap</h4>
+                            <p id="ai-skill-gap" class="skeleton">Awaiting Data</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart-wrapper panel hover-scale">
+                        <h2><i class="fa-solid fa-chart-column" style="color:var(--accent);"></i> Aggregated Skill Distribution</h2>
+                        <canvas id="skillsChart"></canvas>
+                    </div>
+                    <div class="chart-wrapper panel hover-scale" style="overflow:hidden; display:flex; flex-direction:column;">
+                        <h2><i class="fa-solid fa-medal" style="color:var(--warning);"></i> HAPIS Leaderboard</h2>
+                        <ul id="top-performers-list" class="leaderboard-list">
+                            <!-- Empty State Pre-populated by JS -->
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Secondary Graphics Container (Radar & Terminal) -->
+                <div class="charts-container hapis-secondary-grid">
+                    <div class="chart-wrapper panel hover-scale">
+                        <h2><i class="fa-solid fa-spider" style="color:var(--accent);"></i> AI Trait Matrix Array</h2>
+                        <div style="position:relative; height:100%; width:100%; display:flex; justify-content:center; align-items:center;">
+                            <canvas id="radarChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-wrapper panel hover-scale" style="overflow: hidden; display: flex; flex-direction: column;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid rgba(0,0,0,0.04); padding-bottom: 14px; margin-bottom: 16px;">
+                            <h2 style="margin:0; border:none; padding:0;"><i class="fa-solid fa-terminal" style="color:var(--accent);"></i> Neural Stream</h2>
+                            <div class="pulse-dot"></div>
+                        </div>
+                        <div id="neural-stream" style="flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:8px;">
+                            <!-- Typed logs go here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Corporate Beacon Row -->
+                <div class="hapis-beacon-row" style="margin-bottom:28px;">
+                    <div class="panel hover-scale" style="padding:16px 24px; display:flex; align-items:center; justify-content:space-between;">
+                        <div style="display:flex; align-items:center; gap:16px;">
+                            <i id="corporate-icon" class="fa-brands fa-aws" style="font-size:2rem; color:#ff9900; transition:all 0.3s ease;"></i>
+                            <span style="font-weight:700; font-size:0.95rem;">External API Target: <span class="pulse-text" style="color:var(--success);">Active Link Established</span></span>
+                        </div>
+                        <div id="corporate-ping" style="font-size:0.85rem; font-family:monospace; color:var(--text-muted); background:rgba(0,0,0,0.03); padding:8px 16px; border-radius:8px; border:1px solid rgba(255,255,255,0.4);">
+                           Awaiting enterprise handshake...
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Students Section -->
+            <section id="students" class="content-section">
+                <div class="section-header">
+                    <h1 class="page-title" style="margin:0;">Candidate Directory</h1>
+                    <div class="search-bar">
+                        <i class="fa-solid fa-search" style="color: var(--text-muted);"></i>
+                        <input type="text" id="student-search" placeholder="Search by name, roll no, or skills...">
+                    </div>
+                </div>
+                
+                <div class="table-container panel">
+                    <table id="students-table">
+                        <thead>
+                            <tr>
+                                <th>Roll No</th>
+                                <th>Candidate</th>
+                                <th>Branch</th>
+                                <th>CGPA</th>
+                                <th>Core Skills</th>
+                                <th>HAPIS Score</th>
+                            </tr>
+                        </thead>
+                        <tbody id="students-tbody">
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- AI Matcher Section -->
+            <section id="matcher" class="content-section">
+                <div class="panel matcher-card">
+                    <h1 class="page-title"><i class="fa-solid fa-microchip" style="color:var(--accent); animation: pulseGlow 2s infinite alternate;"></i> Semantic Neural Matcher</h1>
+                    <p style="color:var(--text-muted); margin-bottom:24px;">Automatically rank profiles based on contextual skill alignment and portfolio strength rather than traditional GPA filtering.</p>
+                    
+                    <div class="form-group">
+                        <label>Target Job Profile</label>
+                        <input type="text" id="job-title" placeholder="e.g. Fullstack Engineer" value="Software Engineer">
+                    </div>
+                    <div class="form-group">
+                        <label>Required Skill Tokens (Comma Separated)</label>
+                        <input type="text" id="required-skills" placeholder="e.g. Java, Spring Boot, SQL" value="Python, React, SQL">
+                    </div>
+                    <button id="btn-match" class="btn-primary ripple">Execute Analysis</button>
+                </div>
+            </section>
+
+            <!-- Expanded Neural Results View -->
+            <section id="matcher-results" class="content-section">
+                <div class="flex-between" style="margin-bottom:24px;">
+                    <h1 class="page-title" style="margin:0;"><i class="fa-solid fa-microchip" style="color:var(--accent);"></i> Analysis Results</h1>
+                    <button class="btn-secondary ripple w-auto" onclick="document.querySelectorAll('.content-section').forEach(sec=>sec.classList.remove('active')); document.getElementById('matcher').classList.add('active');">
+                        <i class="fa-solid fa-arrow-left"></i> Return to Parameters
+                    </button>
+                </div>
+                
+                <div id="matches-container" style="max-width:1000px; margin: 0 auto;">
+                    <div class="panel" style="padding:20px 30px; margin-bottom:24px; background:rgba(37,99,235,0.1); border-color:rgba(37,99,235,0.3);">
+                        <h3 style="color:var(--text-main); font-weight:700;">Optimal Candidates For: <span id="display-job-title" style="color:var(--accent);"></span></h3>
+                        <p style="color:var(--text-muted); font-size:0.9rem; margin-top:4px;">Ranked iteratively by neural skill alignment & holistic academic indices.</p>
+                    </div>
+                    <div id="match-results"></div>
+                </div>
+            </section>
+
+            <!-- Pipeline Board Section -->
+            <section id="pipeline" class="content-section">
+                <div class="flex-between" style="margin-bottom:20px;">
+                    <div>
+                        <h1 class="page-title" style="margin:0;">Active Placement Pipeline</h1>
+                        <p style="color:var(--text-muted); margin-top:4px;">Drag and manage candidates across hiring stages.</p>
+                    </div>
+                </div>
+                
+                <div class="kanban-board">
+                    <div class="kanban-col panel" id="col-shortlisted" ondragover="allowDrop(event)" ondrop="drop(event, 'shortlisted')">
+                        <div class="kanban-header">
+                            <span><i class="fa-solid fa-bookmark" style="color:var(--accent);"></i> Shortlisted</span>
+                            <span class="kanban-badge" id="badge-shortlisted">0</span>
+                        </div>
+                        <div id="list-shortlisted" style="min-height:400px;"></div>
+                    </div>
+                    <div class="kanban-col panel" id="col-interview" ondragover="allowDrop(event)" ondrop="drop(event, 'interview')">
+                        <div class="kanban-header">
+                            <span><i class="fa-solid fa-comments" style="color:var(--warning);"></i> Interviewing</span>
+                            <span class="kanban-badge" id="badge-interview">0</span>
+                        </div>
+                        <div id="list-interview" style="min-height:400px;"></div>
+                    </div>
+                    <div class="kanban-col panel" id="col-placed" ondragover="allowDrop(event)" ondrop="drop(event, 'placed')">
+                        <div class="kanban-header">
+                            <span><i class="fa-solid fa-circle-check" style="color:var(--success);"></i> Placed</span>
+                            <span class="kanban-badge" style="background:#d1fae5; color:var(--success);" id="badge-placed">0</span>
+                        </div>
+                        <div id="list-placed" style="min-height:400px;"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Data Import Section -->
+            <section id="import" class="content-section">
+                <div class="panel import-card hover-scale">
+                    <h1 class="page-title"><i class="fa-solid fa-database" style="color:var(--accent);"></i> Database Ingestion Hub</h1>
+                    <p style="color:var(--text-muted); margin-bottom:24px;">Upload standardized student payloads. HAPIS automatically normalizes and indexes records for semantic search extraction.</p>
+                    
+                    <div class="upload-zone" id="upload-zone">
+                        <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+                        <h3 style="margin-bottom:8px; color:var(--text-main);">Drop CSV or PDF payload here</h3>
+                        <p style="color:var(--text-muted); margin-bottom:16px;">System supports bulk CSV arrays or single PDF resumes</p>
+                        <input type="file" id="csv-fileInput" accept=".csv, .pdf" class="file-input">
+                        <button class="btn-primary ripple" style="width:auto;" onclick="document.getElementById('csv-fileInput').click()">Select File</button>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- AI Processing Overlay -->
+    <div id="ai-overlay" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(15,23,42,0.95); backdrop-filter:blur(10px); z-index:9999; flex-direction:column; align-items:center; justify-content:center; color:#fff;">
+        <i class="fa-solid fa-brain" style="font-size:5rem; color:var(--accent); animation: pulseGlow 0.8s infinite alternate;"></i>
+        <h2 style="margin-top:24px; font-weight:800; font-size:1.8rem; letter-spacing:1px;">HAPIS NEURAL EXTRACTION</h2>
+        <p id="ai-overlay-text" style="color:#94a3b8; font-size:1.1rem; margin-top:8px;">Parsing document vectors...</p>
+        <div style="width:250px; height:4px; background:#1e293b; margin-top:24px; border-radius:2px; overflow:hidden;">
+            <div style="width:40%; height:100%; background:var(--accent); border-radius:2px; animation: shimmer 1s infinite alternate;"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="dataStore.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
