@@ -561,7 +561,7 @@ async function processPDFResume(file) {
             }
 
             try {
-                const response = await fetch('http://localhost:8000/api/chat', {
+                const response = await fetch('https://resume-poec.onrender.com/api/chat', {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${NVIDIA_API_KEY}`,
@@ -658,7 +658,7 @@ async function matchCandidates(title, reqSkills) {
             rollNo: s.rollNo, name: s.name, branch: s.branch, cgpa: s.cgpa, skills: s.skills, projects: s.projects, internships: s.internships
         }));
 
-        const response = await fetch('http://localhost:8000/api/chat', {
+        const response = await fetch('https://resume-poec.onrender.com/api/chat', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${NVIDIA_API_KEY}`,
