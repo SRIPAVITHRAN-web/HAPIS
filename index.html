@@ -101,7 +101,6 @@
                 <div class="menu-container">
                     <button class="icon-btn" id="btn-meatballs"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                     <div class="dropdown-menu" id="meatballs-dropdown">
-                        <div class="dropdown-item" id="btn-theme-toggle"><i class="fa-solid fa-moon"></i> Toggle Dark Mode</div>
                         <div class="dropdown-item" id="btn-export-csv"><i class="fa-solid fa-download"></i> Export Analytics</div>
                         <div class="dropdown-item" id="btn-clear-db" style="color:var(--danger);"><i class="fa-solid fa-trash"></i> Purge Records</div>
                         <hr style="margin:4px 0; border:none; border-top:1px solid #e2e8f0;">
@@ -382,53 +381,6 @@
         <div style="width:250px; height:4px; background:#1e293b; margin-top:24px; border-radius:2px; overflow:hidden;">
             <div style="width:40%; height:100%; background:var(--accent); border-radius:2px; animation: shimmer 1s infinite alternate;"></div>
         </div>
-    </div>
-
-    <!-- Student Profile Modal -->
-    <div id="student-modal-overlay" class="modal-overlay">
-        <div class="student-modal">
-            <div class="modal-close" id="modal-close-btn"><i class="fa-solid fa-xmark"></i></div>
-            
-            <div class="profile-header">
-                <img id="sm-avatar" src="" alt="Avatar" class="profile-av">
-                <div class="profile-info">
-                    <h2 id="sm-name">Student Name</h2>
-                    <p><span id="sm-roll">ROLLNO</span> | <span id="sm-branch">Branch</span> | CGPA: <strong id="sm-cgpa" style="color:var(--text-main);">0.0</strong></p>
-                    <div class="social-links">
-                        <a href="#" id="sm-github" target="_blank" style="display:none;"><i class="fa-brands fa-github"></i></a>
-                        <a href="#" id="sm-linkedin" target="_blank" style="display:none;"><i class="fa-brands fa-linkedin-in"></i></a>
-                        <button id="sm-delete" class="btn-sm" style="margin-left:auto; background:var(--danger); color:white; border:none; padding:8px 16px;"><i class="fa-solid fa-trash"></i> Delete Record</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="profile-stats-grid">
-                <div>
-                    <div class="profile-skills">
-                        <h3>Core Skills Matrix</h3>
-                        <div id="sm-skills"></div>
-                    </div>
-                    <div style="background:var(--accent); color:white; padding:16px; border-radius:16px; text-align:center; box-shadow:0 10px 20px rgba(37,99,235,0.2);">
-                        <h4 style="font-size:0.85rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px; opacity:0.9;">HAPIS Index Score</h4>
-                        <div id="sm-score" style="font-size:3rem; font-weight:800; line-height:1;">0</div>
-                    </div>
-                </div>
-                <div class="profile-chart-container">
-                    <h3>Performance Activity</h3>
-                    <div style="position:relative; height:100%; width:100%; display:flex; justify-content:center; align-items:center; flex:1;">
-                        <canvas id="studentProfileChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Chatbot Integration -->
-    <div id="chatbot-container" style="position: fixed; bottom: 24px; right: 24px; z-index: 10000; display: flex; flex-direction: column; align-items: flex-end;">
-        <iframe id="chatbot-iframe" src="https://chatbot-2-kohl.vercel.app/" style="display: none; width: 380px; height: 600px; border: none; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); margin-bottom: 16px; background: white; overflow: hidden; max-height: calc(100vh - 120px);"></iframe>
-        <button id="chatbot-icon" class="ripple hover-scale" style="width: 60px; height: 60px; border-radius: 50%; background: var(--accent, #2563eb); color: white; border: none; box-shadow: 0 5px 15px rgba(37,99,235,0.4); cursor: pointer; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; transition: transform 0.2s ease;">
-            <i class="fa-solid fa-message" id="chatbot-icon-inner"></i>
-        </button>
     </div>
 
     <!-- Scripts -->
