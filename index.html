@@ -423,6 +423,14 @@
         </div>
     </div>
 
+    <!-- Chatbot Integration -->
+    <div id="chatbot-container" style="position: fixed; bottom: 24px; right: 24px; z-index: 10000; display: flex; flex-direction: column; align-items: flex-end;">
+        <iframe id="chatbot-iframe" src="https://chatbot-2-kohl.vercel.app/" style="display: none; width: 380px; height: 600px; border: none; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); margin-bottom: 16px; background: white; overflow: hidden; max-height: calc(100vh - 120px);"></iframe>
+        <button id="chatbot-icon" class="ripple hover-scale" style="width: 60px; height: 60px; border-radius: 50%; background: var(--accent, #2563eb); color: white; border: none; box-shadow: 0 5px 15px rgba(37,99,235,0.4); cursor: pointer; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; transition: transform 0.2s ease;">
+            <i class="fa-solid fa-message" id="chatbot-icon-inner"></i>
+        </button>
+    </div>
+
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
     <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';</script>
@@ -430,5 +438,34 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="dataStore.js"></script>
     <script src="app.js"></script>
+    
+    <!-- Chatbot Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatbotIcon = document.getElementById('chatbot-icon');
+            const chatbotIframe = document.getElementById('chatbot-iframe');
+            const chatbotIconInner = document.getElementById('chatbot-icon-inner');
+            let isChatbotOpen = false;
+
+            if(chatbotIcon) {
+                chatbotIcon.addEventListener('click', () => {
+                    isChatbotOpen = !isChatbotOpen;
+                    if(isChatbotOpen) {
+                        chatbotIframe.style.display = 'block';
+                        chatbotIconInner.classList.remove('fa-message');
+                        chatbotIconInner.classList.add('fa-xmark');
+                        chatbotIcon.style.transform = 'scale(0.9)';
+                        setTimeout(() => chatbotIcon.style.transform = 'scale(1)', 150);
+                    } else {
+                        chatbotIframe.style.display = 'none';
+                        chatbotIconInner.classList.remove('fa-xmark');
+                        chatbotIconInner.classList.add('fa-message');
+                        chatbotIcon.style.transform = 'scale(0.9)';
+                        setTimeout(() => chatbotIcon.style.transform = 'scale(1)', 150);
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
