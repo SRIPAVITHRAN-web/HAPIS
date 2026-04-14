@@ -384,6 +384,45 @@
         </div>
     </div>
 
+    <!-- Student Profile Modal -->
+    <div id="student-modal-overlay" class="modal-overlay">
+        <div class="student-modal">
+            <div class="modal-close" id="modal-close-btn"><i class="fa-solid fa-xmark"></i></div>
+            
+            <div class="profile-header">
+                <img id="sm-avatar" src="" alt="Avatar" class="profile-av">
+                <div class="profile-info">
+                    <h2 id="sm-name">Student Name</h2>
+                    <p><span id="sm-roll">ROLLNO</span> | <span id="sm-branch">Branch</span> | CGPA: <strong id="sm-cgpa" style="color:var(--text-main);">0.0</strong></p>
+                    <div class="social-links">
+                        <a href="#" id="sm-github" target="_blank" style="display:none;"><i class="fa-brands fa-github"></i></a>
+                        <a href="#" id="sm-linkedin" target="_blank" style="display:none;"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <button id="sm-delete" class="btn-sm" style="margin-left:auto; background:var(--danger); color:white; border:none; padding:8px 16px;"><i class="fa-solid fa-trash"></i> Delete Record</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-stats-grid">
+                <div>
+                    <div class="profile-skills">
+                        <h3>Core Skills Matrix</h3>
+                        <div id="sm-skills"></div>
+                    </div>
+                    <div style="background:var(--accent); color:white; padding:16px; border-radius:16px; text-align:center; box-shadow:0 10px 20px rgba(37,99,235,0.2);">
+                        <h4 style="font-size:0.85rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px; opacity:0.9;">HAPIS Index Score</h4>
+                        <div id="sm-score" style="font-size:3rem; font-weight:800; line-height:1;">0</div>
+                    </div>
+                </div>
+                <div class="profile-chart-container">
+                    <h3>Performance Activity</h3>
+                    <div style="position:relative; height:100%; width:100%; display:flex; justify-content:center; align-items:center; flex:1;">
+                        <canvas id="studentProfileChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
     <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';</script>
