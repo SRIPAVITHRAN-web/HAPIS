@@ -21,6 +21,38 @@
     --shadow-glow: 0 0 20px var(--icon-glow);
 }
 
+
+/* Default = Dark Mode */
+:root {
+  --bg-color: #0f172a;
+  --text-color: #f1f5f9;
+  --card-color: #1e293b;
+  --accent-color: #6366f1;
+}
+
+/* Light Mode Overrides */
+body.light-mode {
+  --bg-color: #f9fafb;
+  --text-color: #111827;
+  --card-color: #ffffff;
+  --accent-color: #4f46e5;
+}
+
+/* Apply Variables */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.card, .container, .box {
+  background-color: var(--card-color);
+}
+
+button, .btn {
+  background-color: var(--accent-color);
+  color: white;
+}
+
 /* ============================
    GLOBAL BASE
    ============================ */
